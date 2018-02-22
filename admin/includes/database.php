@@ -43,8 +43,9 @@ class Database {
         return $escaped_string = $this->connection->real_escape_string($string);
     }
 
+    //returns id of the last item created in db(mysqli method)
     public function the_insert_id() {
-        return $this->connection->insert_id;
+        return mysqli_insert_id($this->connection);
     }
 
 }

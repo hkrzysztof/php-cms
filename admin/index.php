@@ -1,5 +1,7 @@
 <?php include("includes/header.php") ?>
 
+<?php if (!$session->is_signed_in()) {redirect('login.php');}?>
+
         <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
@@ -44,8 +46,18 @@
 //                                    echo $user->username.'<br>';
 //                                }
 
-                            $user_found = User::find_by_id(1);
-                            echo $user_found->username;
+//                            $user_found = User::find_by_id(2);
+//////                            $user_found = new User();
+//                            $user_found->last_name = "tester";
+//                            $user_found->save();
+//                            echo $user_found->username;
+
+//                            $hid = new User();
+//                            $hid->username = 'hidok';
+//                            $hid->password = '1234';
+//                            $hid->first_name = 'ferst';
+//                            $hid->last_name = 'last';
+//                            $hid->save();
 
                             ?>
 
