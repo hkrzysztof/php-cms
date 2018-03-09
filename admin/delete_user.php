@@ -10,6 +10,7 @@ if (empty($_GET['id'])) {
 
     if ($user) {
         $user->delete();
+        $session->message("User #{$user->id} deleted");
         redirect('users.php');
     } else {
         redirect('users.php');

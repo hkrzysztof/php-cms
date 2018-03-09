@@ -1,41 +1,73 @@
 <?php include("includes/header.php") ?>
 
-        <!-- Navigation -->
-        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <?php include("includes/top_nav.php") ?>
+<?php if (!$session->is_signed_in()) {redirect('login.php');}?>
 
-            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
-            <?php include("includes/side_nav.php") ?>
-            <!-- /.navbar-collapse -->
-        </nav>
+<?php $comments = Comment::find_all(); ?>
 
-        <div id="page-wrapper">
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <?php include("includes/top_nav.php") ?>
 
-            <div class="container-fluid">
+        <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <?php include("includes/side_nav.php") ?>
+        <!-- /.navbar-collapse -->
+    </nav>
 
-                <!-- Page Heading -->
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h1 class="page-header">
-                            Comments
-                            <small>Subheading</small>
-                        </h1>
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
+    <div id="page-wrapper">
+
+        <div class="container-fluid">
+
+            <!-- Page Heading -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">
+                        Comments
+                    </h1>
+                    <div class="col-xs-2"><?php echo $session->message ?></div>
+                    <div class="col-md-12">
+
+                        <table class="table table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Photo Id</th>
+                                <th>Author</th>
+                                <th>Created At</th>
+                                <th>Body</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <?php foreach ($comments as $comment): ?>
+
+                                <tr>
+                                    <td><?php echo $comment->id; ?></td>
+                                    <td><?php echo $comment->photo_id; ?></td>
+                                    <td><?php echo $comment->author ?>
+                                        <div class="action_links">
+                                            <a href="delete_comment.php?id=<?php echo $comment->id; ?>">Delete</a>
+<!--                                            <a href="edit_comment.php?id=--><?php //echo $comment->id; ?><!--">Edit</a>-->
+                                        </div>
+                                    </td>
+                                    <td><?php echo $comment->created_at ?></td>
+                                    <td><?php echo $comment->body; ?></td>
+                                </tr>
+
+                            <?php endforeach ?>
+
+                            </tbody>
+                        </table>
+
                     </div>
+
                 </div>
-                <!-- /.row -->
-
             </div>
-            <!-- /.container-fluid -->
-        </div>
-        <!-- /#page-wrapper -->
+            <!-- /.row -->
 
-  <?php include("includes/footer.php") ?>
+        </div>
+        <!-- /.container-fluid -->
+    </div>
+    <!-- /#page-wrapper -->
+
+<?php include("includes/footer.php") ?>

@@ -4,33 +4,34 @@
 
 <?php
 
- if (isset($_POST['create'])) {
+    if (empty($_GET['id'])) {
+        redirect('users.php');
+    }
 
-    $user = new User();
+    $user = User::find_by_id($_GET['id']);
 
-    if ($user) {
+    if (isset($_POST['update'])) {
+        if ($user) {
 
-        $user->username = $_POST['username'];
-        $user->password = $_POST['password'];
-        $user->first_name = $_POST['first_name'];
-        $user->last_name = $_POST['last_name'];
-        $user->created_at = date('d-m-y H:i:s');
+            $user->username = $_POST['username'];
+            if(!empty($_POST['password'])) {
+                $user->password = $_POST['password'];
+            }
+            $user->first_name = $_POST['first_name'];
+            $user->last_name = $_POST['last_name'];
+            $user->last_modified = date('d-m-y H:i:s');
 
-        if (empty($_FILES['user_image'])) {
-            $user->save();
-            $session->message('User created');
-            redirect('users.php');
-        } else {
             $user->set_file($_FILES['user_image']);
             $user->save_with_image();
             $user->save();
-            $session->message('User created');
+            $session->message("User #{$user->id} updated");
             redirect('users.php');
-        }
+        };
+    };
 
-    }
- }
 ?>
+
+<?php include('includes/modal.php')?>
 
 
 
@@ -52,40 +53,47 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Users
-                            <small>Subheading</small>
+                            Welcome <strong><?php echo $user->username; ?></strong>
                         </h1>
+
+                        <div class="col-md-6 user_image_box">
+                            <a href="#" data-toggle="modal" data-target="#photo-library">  <img src="<?php echo $user->image_path_and_placeholder(); ?>" alt="user_pic" class="img-responsive"></a>
+                        </div>
 
                         <form action="" method="post" enctype="multipart/form-data">
 
                             <div class="col-md-6">
 
                                 <div class="form-group">
-                                    <label for="user_image">User Image</label>
+<!--                                    <img src="--><?php //echo $user->image_path_and_placeholder(); ?><!--" alt="user_pic" class="admin_thumbnail">-->
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="file">Photo: </label>
                                     <input type="file" name="user_image" class="form-control" >
                                 </div>
 
                                 <div class="form-group">
                                     <label for="title">Username</label>
-                                    <input type="text" name="username" class="form-control" >
+                                    <input type="text" name="username" class="form-control" value="<?php echo $user->username; ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="caption">Password</label>
-                                    <input type="password" name="password" class="form-control">
+                                    <input type="password" name="password" class="form-control" value="">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="alt_text">First Name</label>
-                                    <input type="text" name="first_name" class="form-control">
+                                    <input type="text" name="first_name" class="form-control" value="<?php echo $user->first_name; ?>">
                                 </div>
 
                                 <div class="form-group">
                                     <label for="alt_text">Last Name</label>
-                                    <input type="text" name="last_name" class="form-control">
+                                    <input type="text" name="last_name" class="form-control" value="<?php echo $user->last_name; ?>">
                                 </div>
-
-                                <input type="submit" name="create" value="Create" class="btn btn-primary pull-right">
+                                <a id="user_id" href="delete_user.php?id=<?php echo $user->id; ?>" class="btn btn-danger pull-left">Delete</a>
+                                <input type="submit" name="update" value="Update" class="btn btn-primary pull-right">
                             </div>
 
                         </form>

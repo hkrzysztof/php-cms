@@ -35,13 +35,13 @@
     <form id="login-id" action="" method="post">
 
         <div class="form-group">
-            <label for="username">Username</label>
+            <label for="username" class="login_label">Username</label>
             <input type="text" class="form-control" name="username" value="<?php echo htmlentities($username); ?>" >
 
         </div>
 
         <div class="form-group">
-            <label for="password">Password</label>
+            <label for="password" class="login_label">Password</label>
             <input type="password" class="form-control" name="password" value="<?php echo htmlentities($password); ?>">
 
         </div>

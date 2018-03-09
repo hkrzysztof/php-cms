@@ -20,55 +20,103 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Admin Page
-                            <small>Subheading</small>
+                            Administration control panel
                         </h1>
 
-                            <?php
-//                                $results = User::find_all_users();
-//
-//                                while($row = mysqli_fetch_array($results)) {
-//                                    echo $row['username'].'<br>';
-//                                }
-//
-//                                $user_found = User::find_by_id(1);
-//                                echo $user_found['username'];
+                        <div class="row">
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-users fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><?php echo $session->count; ?></div>
+                                                <div>New Views</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="edit_user.php?id=<?php echo $session->user_id ?>">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">View Your Profile</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
 
-//                                $user_found = User::find_by_id(1);
-//                                $user = User::instantation($user_found);
-//
-//                                echo $user->id;
-//                                echo $user->password;
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-green">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-photo fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><?php echo Photo::count_all();?></div>
+                                                <div>Photos</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="photos.php">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Total Photos in Gallery</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
 
-//                                $users = User::find_all_users();
-//
-//                                foreach ($users as $user) {
-//                                    echo $user->username.'<br>';
-//                                }
 
-//                            $user_found = User::find_by_id(2);
-//////                            $user_found = new User();
-//                            $user_found->last_name = "tester";
-//                            $user_found->save();
-//                            echo $user_found->username;
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-yellow">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-user fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><?php echo User::count_all();?></div>
+                                                <div>Users</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="users.php">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Total Users</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
 
-//                            $hid = new User();
-//                            $hid->username = 'hidok';
-//                            $hid->password = '1234';
-//                            $hid->first_name = 'ferst';
-//                            $hid->last_name = 'last';
-//                            $hid->save();
+                            <div class="col-lg-3 col-md-6">
+                                <div class="panel panel-red">
+                                    <div class="panel-heading">
+                                        <div class="row">
+                                            <div class="col-xs-3">
+                                                <i class="fa fa-support fa-5x"></i>
+                                            </div>
+                                            <div class="col-xs-9 text-right">
+                                                <div class="huge"><?php echo Comment::count_all();?></div>
+                                                <div>Comments</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <a href="comments.php">
+                                        <div class="panel-footer">
+                                            <span class="pull-left">Total Comments</span>
+                                            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
 
-                            ?>
-
-                        <ol class="breadcrumb">
-                            <li>
-                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
-                            </li>
-                            <li class="active">
-                                <i class="fa fa-file"></i> Blank Page
-                            </li>
-                        </ol>
                     </div>
                 </div>
                 <!-- /.row -->

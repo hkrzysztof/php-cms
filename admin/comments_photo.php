@@ -2,7 +2,11 @@
 
 <?php if (!$session->is_signed_in()) {redirect('login.php');}?>
 
-<?php $users = User::find_all(); ?>
+<?php if (empty($_GET['id'])) {
+    redirect('photos.php');
+} ?>
+
+<?php $comments = Comment::find_by_photo_id($_GET['id']); ?>
 
     <!-- Navigation -->
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -21,12 +25,9 @@
             <!-- Page Heading -->
             <div class="row">
                 <div class="col-lg-12">
-
-                    <div class="page-header">
-                        <h1>Users</h1>
-                        <a href="add_user.php" class="btn btn-primary">Add user</a>
-                    </div>
-
+                    <h1 class="page-header">
+                        Comments for photo # <?php echo $_GET['id'] ?>
+                    </h1>
                     <div class="col-xs-2"><?php echo $session->message ?></div>
 
                     <div class="col-md-12">
@@ -34,32 +35,24 @@
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>Picture</th>
                                 <th>Id</th>
-                                <th>Username</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Created At</th>
-                                <th>Last Modified</th>
+                                <th>Author</th>
+                                <th>Comment</th>
                             </tr>
                             </thead>
                             <tbody>
 
-                            <?php foreach ($users as $user): ?>
+                            <?php foreach ($comments as $comment): ?>
 
                                 <tr>
-                                    <td><img src="<?php echo $user->image_path_and_placeholder(); ?>" alt="user_pic" class="admin_thumbnail"></td>
-                                    <td><?php echo $user->id; ?></td>
-                                    <td><?php echo $user->username ?>
+                                    <td><?php echo $comment->id; ?></td>
+                                    <td><?php echo $comment->author ?>
                                         <div class="action_links">
-                                            <a href="delete_user.php?id=<?php echo $user->id; ?>">Delete</a>
-                                            <a href="edit_user.php?id=<?php echo $user->id; ?>">Edit</a>
+                                            <a href="delete_photo_comment.php?id=<?php echo $comment->id; ?>">Delete</a>
+<!--                                            <a href="edit_comment.php?id=--><?php //echo $comment->id; ?><!--">Edit</a>-->
                                         </div>
                                     </td>
-                                    <td><?php echo $user->first_name; ?></td>
-                                    <td><?php echo $user->last_name; ?></td>
-                                    <td><?php echo $user->created_at; ?></td>
-                                    <td><?php echo $user->last_modified; ?></td>
+                                    <td><?php echo $comment->body; ?></td>
                                 </tr>
 
                             <?php endforeach ?>

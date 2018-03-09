@@ -1,0 +1,11 @@
+/*HOMEPAGE*/
+.gallery_homepage_photo {
+    width: 200px !important;
+    height: 150px !important;
+}
+
+/*PAGINATION*/
+.pager .active a {
+    border-width: 3px;
+}
+
