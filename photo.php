@@ -8,6 +8,11 @@
     $photo = Photo::find_by_id($_GET['id']);
     $comments = Comment::find_by_photo_id($_GET['id']);
 
+    if($session->is_signed_in()) {
+        $user_found = User::find_by_id($session->user_id);
+        $username = $user_found->username;
+    }
+
 //    if (isset($_POST['submit'])){
 //        $new_comment = Comment::create_comment($photo->id, trim($_POST['author']), trim($_POST['body']));
 //
@@ -20,20 +25,17 @@
     if (isset($_POST['submit'])){
         $comment = new Comment();
 
-        if($comment && !empty($photo->id) && !empty($_POST['author']) && !empty($_POST['body'])) {
+        if($comment && !empty($photo->id) && !empty($_POST['body'])) {
             $comment->photo_id = $photo->id;
-            $comment->author = $_POST['author'];
-            $comment->body = $_POST['body'];
-            $comment->created_at =date('d-m-y H:i:s');
-            $comment->save();
+            $comment->author = $username;
+            $comment->body = trim($_POST['body']);
+            $comment->create_comment_secure($comment->photo_id, $comment->author, $comment->body);
             redirect('photo.php?id='.$photo->id);
         } else {
             $message = 'Wrong input';
         }
     }
 ?>
-
-<?php include 'includes/header.php' ?>
 
         <div class="row">
 
@@ -44,7 +46,6 @@
 
                 <!-- Title -->
                 <h1><?php echo $photo->title; ?></h1>
-
                 <!-- Author -->
 
 
@@ -67,14 +68,14 @@
 
                 <!-- Blog Comments -->
 
+                <?php if ($session->is_signed_in()):?>
                 <!-- Comments Form -->
                 <div class="well">
-                    <h4>Leave a Comment:</h4>
+<!--                    <h4>Leave a Comment:</h4>-->
                     <form role="form" method="post">
-                        <div class="form-group">
-                            <label for="author">Author:</label>
-                            <input type="text" name="author">
-                        </div>
+<!--                        <div class="form-group">-->
+<!--                            <input type="text" name="author" hidden="hidden" value="--><?php //echo $username ?><!--">-->
+<!--                        </div>-->
 
                         <div class="form-group">
                             <label for="body">Comment:</label>
@@ -83,6 +84,7 @@
                         <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
+                <?php endif; ?>
 
                 <hr>
 

@@ -209,4 +209,10 @@ class Db_object {
        return count(static::find_query("SELECT * FROM " . static::$db_table));
 
     }
+
+    public static function count_all_by_user($username) {
+        global $database;
+        return count(static::find_query("SELECT * FROM " . static::$db_table . " WHERE author = '" . $username . "'"));
+
+    }
 }

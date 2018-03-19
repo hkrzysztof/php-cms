@@ -96,3 +96,11 @@
 div.page-header > h1{
     margin-top: 0 !important;
 }
+
+.text {
+    display: block;
+    width: 20em;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

@@ -20,6 +20,7 @@
             $user->first_name = $_POST['first_name'];
             $user->last_name = $_POST['last_name'];
             $user->last_modified = date('d-m-y H:i:s');
+            $user->rights = $_POST['rights'];
 
             $user->set_file($_FILES['user_image']);
             $user->save_with_image();
@@ -57,7 +58,22 @@
                         </h1>
 
                         <div class="col-md-6 user_image_box">
-                            <a href="#" data-toggle="modal" data-target="#photo-library">  <img src="<?php echo $user->image_path_and_placeholder(); ?>" alt="user_pic" class="img-responsive"></a>
+                            <a href="#" data-toggle="modal" data-target="#photo-library">  <img src="<?php echo $user->image_path_and_placeholder(); ?>" alt="user_pic" class="img-responsive center-block"></a>
+                            <br>
+                            <ul class="list-group">
+                                <li class="list-group-item justify-content-between">
+                                    Posts:
+                                    <span class="badge badge-default badge-pill"><?php echo Post::count_all_by_user($user->username); ?></span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    Photos Uploaded:
+                                    <span class="badge badge-default badge-pill"><?php echo Photo::count_all_by_user($user->username); ?></span>
+                                </li>
+                                <li class="list-group-item justify-content-between">
+                                    Comments:
+                                    <span class="badge badge-default badge-pill"><?php echo Comment::count_all_by_user($user->username); ?></span>
+                                </li>
+                            </ul>
                         </div>
 
                         <form action="" method="post" enctype="multipart/form-data">
@@ -84,14 +100,25 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="alt_text">First Name</label>
+                                    <label for="first_name">First Name</label>
                                     <input type="text" name="first_name" class="form-control" value="<?php echo $user->first_name; ?>">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="alt_text">Last Name</label>
+                                    <label for="last_name">Last Name</label>
                                     <input type="text" name="last_name" class="form-control" value="<?php echo $user->last_name; ?>">
                                 </div>
+
+                                <?php if ($session->rights === 'owner'): ?>
+                                    <div class="form-group">
+                                        <label for="rights">Rights</label>
+                                        <select name="rights">
+                                            <option value="owner">Owner</option>
+                                            <option value="administrator">Administrator</option>
+                                            <option value="subscriber" selected>Subscriber</option>
+                                        </select>
+                                    </div>
+                                <?php endif; ?>
                                 <a id="user_id" href="delete_user.php?id=<?php echo $user->id; ?>" class="btn btn-danger pull-left">Delete</a>
                                 <input type="submit" name="update" value="Update" class="btn btn-primary pull-right">
                             </div>

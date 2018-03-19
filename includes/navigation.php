@@ -14,15 +14,37 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="gallery.php">Gallery</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="posts.php">Posts</a>
                     </li>
+
+                </ul>
+                <?php if (!$session->is_signed_in()): ?>
+                <ul class="nav navbar-nav pull-right">
                     <li>
-                        <a href="/admin">Admin</a>
+                        <a href="/admin/register.php">Register</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="/admin/login.php">Sign in</a>
                     </li>
                 </ul>
+                <?php endif ?>
+
+                <?php if ($session->is_signed_in()): ?>
+                    <ul class="nav navbar-nav pull-right">
+                        <?php if ($session->is_signed_in() && ($session->rights === 'administrator' || $session->rights === 'owner') ): ?>
+                            <li>
+                                <a href="/admin">Admin Panel</a>
+                            </li>
+                        <?php endif ?>
+                        <li class="pull-right">
+                            <a href="/admin/logout.php">Log out</a>
+                        </li>
+                    </ul>
+                <?php endif ?>
+
             </div>
             <!-- /.navbar-collapse -->
         </div>

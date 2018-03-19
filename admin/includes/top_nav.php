@@ -20,10 +20,6 @@
             <li>
                 <a href="edit_user.php?id=<?php echo $session->user_id ?>"><i class="fa fa-fw fa-user"></i> Profile</a>
             </li>
-
-            <li>
-                <a href="#"><i class="fa fa-fw fa-gear"></i> Your Statistics</a>
-            </li>
             <li class="divider"></li>
             <li>
                 <a href="logout.php"><i class="fa fa-fw fa-power-off"></i> Log Out</a>

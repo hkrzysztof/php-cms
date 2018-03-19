@@ -1,6 +1,6 @@
 <?php include("includes/header.php") ?>
 
-<?php if (!$session->is_signed_in()) {redirect('login.php');}?>
+<?php if (!$session->is_signed_in() || !($session->rights === 'owner')) {redirect('login.php');}?>
 
 <?php
 
@@ -11,10 +11,11 @@
     if ($user) {
 
         $user->username = $_POST['username'];
-        $user->password = $_POST['password'];
+        $user->password = User::secured_hash(trim($_POST['password']));
         $user->first_name = $_POST['first_name'];
         $user->last_name = $_POST['last_name'];
         $user->created_at = date('d-m-y H:i:s');
+        $user->rights = $_POST['rights'];
 
         if (empty($_FILES['user_image'])) {
             $user->save();
@@ -52,8 +53,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">
-                            Users
-                            <small>Subheading</small>
+                            Add User
                         </h1>
 
                         <form action="" method="post" enctype="multipart/form-data">
@@ -83,6 +83,15 @@
                                 <div class="form-group">
                                     <label for="alt_text">Last Name</label>
                                     <input type="text" name="last_name" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="rights">Rights</label>
+                                    <select name="rights">
+                                        <option value="owner">Owner</option>
+                                        <option value="administrator">Administrator</option>
+                                        <option value="subscriber" selected>Subscriber</option>
+                                    </select>
                                 </div>
 
                                 <input type="submit" name="create" value="Create" class="btn btn-primary pull-right">

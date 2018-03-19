@@ -3,7 +3,7 @@
 class Session {
 
     private $signed_in = false;
-    public $user_id, $message, $username, $count;
+    public $user_id, $message, $username, $count, $rights;
 
     function __construct() {
         session_start();
@@ -46,13 +46,16 @@ class Session {
         if ($user) {
             $this->user_id = $_SESSION['user_id'] = $user-> id;
             $this->username = $user->username;
+            $this->rights = $_SESSION['rights'] = $user->rights;
             $this->signed_in = true;
         }
     }
 
     public function logout() {
         unset($_SESSION['user_id']);
+        unset($_SESSION['rights']);
         unset($this->user_id);
+        unset($this->rights);
         $this->signed_in = false;
     }
 
@@ -60,9 +63,11 @@ class Session {
     private function check_the_login() {
         if (isset($_SESSION['user_id'])) {
             $this->user_id = $_SESSION['user_id'];
+            $this->rights = $_SESSION['rights'];
             $this->signed_in = true;
         } else {
             unset($this->user_id);
+            unset($this->rights);
             $this->signed_in = false;
         }
     }

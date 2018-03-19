@@ -9,3 +9,17 @@
     border-width: 3px;
 }
 
+.posts_box {
+    border: 1px solid #555555 !important;
+    border-radius: 20px;
+    box-shadow: 2px 2px gray;
+    padding: 10px;
+    margin: 10px;
+}
+.text {
+    display: block;
+    width: 99%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

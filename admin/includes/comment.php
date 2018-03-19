@@ -26,4 +26,25 @@ class Comment extends Db_object {
         return static::find_query("SELECT * FROM " . static::$db_table . " where photo_id = " . $database->escape_string($photo_id));
     }
 
+    public function create_comment_secure($photo_id, $author, $body) {
+        global $database;
+        $this->photo_id = $photo_id = $database->escape_string($photo_id);
+        $this->author = $author = $database->escape_string($author);
+        $this->body = $body = $database->escape_string($body);
+        $this->created_at = $created_at = date('d-m-y H:i:s');
+
+
+        $sql = "INSERT INTO comments (photo_id, author, body, created_at) VALUES (?, ?, ?, ?)";
+        $conn = $database->connection;
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("isss", $photo_id, $author, $body, $created_at);
+
+        if($stmt->execute()) {
+            $this->id = $database->the_insert_id();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }

@@ -29,17 +29,17 @@
                                     <div class="panel-heading">
                                         <div class="row">
                                             <div class="col-xs-3">
-                                                <i class="fa fa-users fa-5x"></i>
+                                                <i class="fa fa-file-text-o fa-5x"></i>
                                             </div>
                                             <div class="col-xs-9 text-right">
-                                                <div class="huge"><?php echo $session->count; ?></div>
-                                                <div>New Views</div>
+                                                <div class="huge"><?php echo Post::count_all(); ?></div>
+                                                <div>Posts</div>
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="edit_user.php?id=<?php echo $session->user_id ?>">
+                                    <a href="posts.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">View Your Profile</span>
+                                            <span class="pull-left">View Posts</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -62,7 +62,7 @@
                                     </div>
                                     <a href="photos.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Photos in Gallery</span>
+                                            <span class="pull-left">View Photos</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -86,7 +86,7 @@
                                     </div>
                                     <a href="users.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Users</span>
+                                            <span class="pull-left">View Users</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>
@@ -109,7 +109,7 @@
                                     </div>
                                     <a href="comments.php">
                                         <div class="panel-footer">
-                                            <span class="pull-left">Total Comments</span>
+                                            <span class="pull-left">View Comments</span>
                                             <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                             <div class="clearfix"></div>
                                         </div>

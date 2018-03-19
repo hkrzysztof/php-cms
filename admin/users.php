@@ -24,7 +24,10 @@
 
                     <div class="page-header">
                         <h1>Users</h1>
-                        <a href="add_user.php" class="btn btn-primary">Add user</a>
+                        <?php if ($session->rights === 'owner'): ?>
+                            <a href="add_user.php" class="btn btn-primary">Add user</a>
+                        <?php endif; ?>
+
                     </div>
 
                     <div class="col-xs-2"><?php echo $session->message ?></div>
@@ -41,6 +44,12 @@
                                 <th>Last Name</th>
                                 <th>Created At</th>
                                 <th>Last Modified</th>
+                                <th>Posts</th>
+                                <th>Photos</th>
+                                <th>Comments</th>
+                                <?php if ($session->rights === 'owner'): ?>
+                                <th>Rights</th>
+                                <?php endif; ?>
                             </tr>
                             </thead>
                             <tbody>
@@ -60,6 +69,12 @@
                                     <td><?php echo $user->last_name; ?></td>
                                     <td><?php echo $user->created_at; ?></td>
                                     <td><?php echo $user->last_modified; ?></td>
+                                    <td><?php echo Post::count_all_by_user($user->username); ?></td>
+                                    <td><?php echo Photo::count_all_by_user($user->username); ?></td>
+                                    <td><?php echo Comment::count_all_by_user($user->username); ?></td>
+                                    <?php if ($session->rights === 'owner'): ?>
+                                        <td><?php echo $user->rights; ?></td>
+                                    <?php endif; ?>
                                 </tr>
 
                             <?php endforeach ?>
